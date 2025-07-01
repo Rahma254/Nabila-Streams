@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Nabila Streams</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1>🎧 Nabila Streams</h1>
+    <h2>Login to Your Account</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+    <p id="message"></p>
+    <p class="small">Belum punya akun? <a href="#" onclick="signup()">Daftar di sini</a></p>
+  </div>  <script src="config.js"></script>  <script src="supabase.js"></script>  <script src="login.js"></script></body>
+</html>
