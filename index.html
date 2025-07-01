@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genosida Streams</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nabilq Streams 🎵</h1>
+    <p>Lagu-lagu ciptaan original kamu - streaming sekarang!</p>
+  </header>
+
+  <main>
+    <div id="player-container">
+      <iframe id="mux-player" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+
+    <div class="controls">
+      <button onclick="prevSong()">⏮ Sebelumnya</button>
+      <button onclick="nextSong()">Selanjutnya ⏭</button>
+    </div>
+
+    <div id="song-info"></div>
+
+    <div class="interact">
+      <button onclick="likeSong()">❤️ Like (<span id="like-count">0</span>)</button>
+      <button onclick="shareSong()">🔗 Share</button>
+    </div>
+
+    <div class="comment-section">
+      <h3>Komentar</h3>
+      <input type="text" id="comment-input" placeholder="Tulis komentar..." />
+      <button onclick="addComment()">Kirim</button>
+      <ul id="comments"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>© Nabila Streams - Powered by Mux</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
