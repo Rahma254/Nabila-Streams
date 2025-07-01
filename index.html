@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nabila Streams</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #0d0d0d;
+      font-family: 'Inter', sans-serif;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      background: linear-gradient(90deg, #ff2e63, #fb5283);
+      font-size: 1.5em;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .song-card {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255, 46, 99, 0.2);
+    }
+
+    .song-title {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #ff2e63;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9em;
+      color: #aaa;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Nabila Streams 🎵
+</header>
+
+<div class="container" id="songs-container">
+  <p>Memuat lagu-lagu terbaik...</p>
+</div>
+
+<footer>
+  &copy; 2025 Nabila Streams. Powered by Supabase & Mux.
+</footer>
+
+<script>
+  const supabaseUrl = 'https://vgchzuqtrmohyzojvngw.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZnY2h6dXF0cm1vaHl6b2p2bmd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyNzE1NzAsImV4cCI6MjA2Njg0NzU3MH0.WKcSXto5EXcS1fdScAKf6atW7tcXM9AB9jObapii_2g';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  const songs = [
+    {
+      title: "Janda Nakal",
+      playbackId: "1QLzDAFFm01uW02VxAf2yZ004SlFtcOLTw3L7s5woOrl5Q"
+    },
+    {
+      title: "Drunk Confessions",
+      playbackId: "d802AEWpBCRJ9dPJVhQFinHhkH01hRb027NssU1FykBgYg"
+    },
+    {
+      title: "Broken Home Anthem",
+      playbackId: "kqp9FRoagl00tTEk5ZSdlIYAfpBWgbjvGLmf2sFl9bGY"
+    },
+    {
+      title: "Pelukan Senja",
+      playbackId: "y02TWzsfRTj717WZty00AY028A97xe01l501aAAJjiXAjL7A"
+    }
+  ];
+
+  const container = document.getElementById('songs-container');
+  container.innerHTML = "";
+
+  songs.forEach(song => {
+    const el = document.createElement("div");
+    el.className = "song-card";
+    el.innerHTML = `
+      <div class="song-title">${song.title}</div>
+      <video controls poster="https://image.mux.com/${song.playbackId}/thumbnail.jpg">
+        <source src="https://stream.mux.com/${song.playbackId}.m3u8" type="application/x-mpegURL">
+        Browser kamu tidak mendukung pemutar video.
+      </video>
+      <div class="controls">
+        <button onclick="like('${song.title}')">❤️ Like</button>
+        <button onclick="share('${song.title}')">🔗 Share</button>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+
+  function like(title) {
+    alert(`Kamu menyukai lagu: ${title}`);
+    // Nanti bisa dihubungkan ke Supabase likes table
+  }
+
+  function share(title) {
+    const url = window.location.href;
+    navigator.clipboard.writeText(`${url}#${title}`);
+    alert(`Link untuk "${title}" telah disalin!`);
+  }
+</script>
+
+</body>
+</html>
