@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nabila Streams - Masuk</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: #121212;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-box p {
+      color: #aaa;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 0.5rem;
+      background: #1e1e1e;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #ff2c55;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #e52548;
+    }
+
+    .error {
+      color: #f56;
+      font-size: 0.9rem;
+    }
+
+    .register-link {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .register-link a {
+      color: #ff2c55;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>Nabila Streams</h1>
+    <p>Masuk untuk mendengarkan musik favoritmu</p>
+    <input type="email" id="email" placeholder="Email kamu" />
+    <input type="password" id="password" placeholder="Password kamu" />
+    <button onclick="login()">Masuk</button>
+    <p id="error-msg" class="error"></p>
+    <div class="register-link">
+      Belum punya akun? <a href="#">Daftar di sini</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    async function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        document.getElementById('error-msg').textContent = error.message;
+      } else {
+        window.location.href = 'home.html';
+      }
+    }
+
+    // Auto-redirect kalau sudah login
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        window.location.href = 'home.html';
+      }
+    });
+  </script>
+</body>
+</html>
