@@ -1,0 +1,33 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SupabaseBook - Timeline</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <h2>Welcome to SupabaseBook</h2>
+  <div id="user-email"></div>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const supabase = supabase.createClient('https://YOUR_PROJECT.supabase.co', 'YOUR_ANON_KEY');
+
+    async function checkUser() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (!user) {
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('user-email').innerText = `Logged in as: ${user.email}`;
+      }
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = 'index.html';
+    }
+
+    checkUser();
+  </script>
+</body>
+</html>
